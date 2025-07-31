@@ -34,39 +34,45 @@ export const Event = ({event}:any) => {
     }
 
     return (
-        <Card>
-            <CardHeader className="text-center">
-                <img
-                    src={event.posterUrl}
-                    alt={event.title}
-                    className="rounded-md h-[20rem] w-full object-cover"
-                />
-                <CardTitle className="text-start text-3xl">
-                    {event.title}
-                </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p>{event.description}</p>
-                <p>{getDate(event.date)}</p>
-                <p>{event.location}</p>
-                {isAdmin ? (
-                  <Button className="w-full mt-4">
-                    <Link
-                      to={`/admin/users/attendance/${event._id}`}
-                      className="w-full"
-                    >
-                      Mark Attendance
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button
-                    className="w-full mt-4 cursor-pointer"
-                    onClick={register}
+      <div className="flex flex-col h-full">
+        <Card className="flex flex-col flex-1">
+          <CardHeader className="text-center">
+            <img
+              src={event.posterUrl}
+              alt={event.title}
+              className="rounded-md h-[20rem] w-full object-cover"
+            />
+            <CardTitle className="text-start text-3xl">
+              {event.title}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col flex-1 justify-between">
+            <div>
+              <p>{event.description}</p>
+              <p>{getDate(event.date)}</p>
+              <p>{event.location}</p>
+            </div>
+            <div className="flex items-end mt-4">
+              {isAdmin ? (
+                <Button className="w-full">
+                  <Link
+                    to={`/admin/users/attendance/${event._id}`}
+                    className="w-full"
                   >
-                    Register
-                  </Button>
-                )}
-            </CardContent>
+                    Mark Attendance
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  className="w-full cursor-pointer"
+                  onClick={register}
+                >
+                  Register
+                </Button>
+              )}
+            </div>
+          </CardContent>
         </Card>
+      </div>
     )
 }
