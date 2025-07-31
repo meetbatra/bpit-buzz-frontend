@@ -34,7 +34,7 @@ export const Event = ({event}:any) => {
     }
 
     return (
-        <Card className="">
+        <Card>
             <CardHeader className="text-center">
                 <img
                     src={event.posterUrl}
