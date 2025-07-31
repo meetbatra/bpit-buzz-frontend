@@ -36,7 +36,7 @@ const Certificates = () => {
                     <p className="text-red-600">No certificates available</p>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {certificates.map((certi) => (
+                        {certificates.map((certi:any) => (
                             <Card key={certi._id}>
                                 <CardHeader>
                                     <CardTitle className="text-center font-bold">
