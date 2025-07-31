@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/modules/user/store/user-store";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export const Event = ({event}:any) => {
     const { user, token } = useAuth();
     const isAdmin  = user?.role === 'admin'
+    const navigate = useNavigate();
     const getDate = (date:string) => {
         const d = new Date(date);
         return d.toLocaleDateString(undefined, {
@@ -18,6 +19,11 @@ export const Event = ({event}:any) => {
     }
 
     const register = async () => {
+        if(!user){
+          navigate('/login');
+          return;
+        }
+
         try {
             const res = await registerUser(user?._id, event._id, token);
             toast.success(res.data.message);
