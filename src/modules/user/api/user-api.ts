@@ -10,6 +10,10 @@ export const loginUser = (userData: unknown) => {
     return axios.post('user/login', userData);
 }
 
+export const googleLogin = (token:string) => {
+    return axios.post('user/google', { token });
+}
+
 export const getUsers = (token:string) => {
     return axios.get('user/all', {
         headers: {

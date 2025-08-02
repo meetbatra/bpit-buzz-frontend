@@ -12,6 +12,7 @@ import { Angry } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useAuth } from "@/modules/user/store/user-store";
 import { toast } from "react-toastify";
+import GoogleLoginButton from "@/modules/user/components/GoogleLoginButton"
 
 const Login = () => {
     const [status, setStatus] = useState(false);
@@ -32,7 +33,7 @@ const Login = () => {
             if (res.data.token) {
                 login({ user: res.data.user, token: res.data.token });
                 setStatus(false);
-                toast.success("Welcome back " + res.data.user.name)
+                toast.success("Welcome back " + res.data.user.name);
                 navigate('/');
             } else {
                 setStatus(true);
@@ -72,6 +73,10 @@ const Login = () => {
                         </div>
                         <Button className="w-full mt-2 cursor-pointer">Login</Button>
                     </form>
+                    <p className="text-center my-4 text-gray-600">OR</p>
+                    <div className="flex justify-center">
+                        <GoogleLoginButton />
+                    </div>
                 </CardContent>
             </Card>
         </div>

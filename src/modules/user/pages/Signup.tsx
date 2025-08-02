@@ -12,6 +12,7 @@ import { signupSchema } from "../validation/signup-validation";
 import { signupUser } from "../api/user-api";
 import { useAuth } from "@/modules/user/store/user-store"
 import { toast } from "react-toastify";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 const Signup = () => {
     const [status, setStatus] = useState(false);
@@ -80,6 +81,10 @@ const Signup = () => {
                         </div>
                         <Button className="w-full mt-2 cursor-pointer">Register</Button>
                     </form>
+                    <p className="text-center my-4 text-gray-600">OR</p>
+                    <div className="flex justify-center">
+                        <GoogleLoginButton />
+                    </div>
                 </CardContent>
             </Card>
         </div>
