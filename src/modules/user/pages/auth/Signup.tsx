@@ -8,11 +8,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signupSchema } from "../validation/signup-validation";
-import { signupUser } from "../api/user-api";
+import { signupSchema } from "../../validation/signup-validation";
+import { signupUser } from "../../api/user-api";
 import { useAuth } from "@/modules/user/store/user-store"
 import { toast } from "react-toastify";
-import GoogleLoginButton from "../components/GoogleLoginButton";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
 
 const Signup = () => {
     const [status, setStatus] = useState(false);

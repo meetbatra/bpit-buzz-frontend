@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../store/user-store";
-import { getCertificates } from "../api/user-api";
+import { useAuth } from "../../store/user-store";
+import { getCertificates } from "../../api/user-api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const Certificates = () => {
 
     return (
         <div className="p-5">
-            <h1 className="text-4xl mb-5 font-bold">My Certificates</h1>
+            <h1 className="text-4xl mb-5">My Certificates</h1>
             <div>
                 {loading ? (
                     <p className="text-red-600">Loading certificates...</p>

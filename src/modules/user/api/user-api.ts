@@ -23,6 +23,7 @@ export const getUsers = (token:string) => {
 }
 
 export const registerUser = (userId:any, eventId:any, token:any) => {
+    console.log(userId);
     return axios.post('user/register', {
         student: userId,
         event: eventId
@@ -35,6 +36,14 @@ export const registerUser = (userId:any, eventId:any, token:any) => {
 
 export const getCertificates = (userId:any, token:any) => {
     return axios.post('user/certificates', {userId}, {
+        headers: {
+            Authorization: token
+        }
+    });
+}
+
+export const getEvents = (userId:any, token:any) => {
+    return axios.post('user/events', {userId} , {
         headers: {
             Authorization: token
         }

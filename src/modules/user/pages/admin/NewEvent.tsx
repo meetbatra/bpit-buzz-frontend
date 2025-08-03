@@ -7,11 +7,11 @@ import { Angry } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { eventSchema } from "../../event/validation/event-validation";
+import { eventSchema } from "../../../event/validation/event-validation";
 import { Textarea } from "@/components/ui/textarea";
 import { addEvent } from "@/modules/event/api/event-api";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../store/user-store";
+import { useAuth } from "../../store/user-store";
 import { toast } from "react-toastify";
 
 const NewEvent = () => {
@@ -25,8 +25,9 @@ const NewEvent = () => {
             title: '',
             description: '',
             date: '',
+            time: '',
             location:'',
-            poster: null
+            poster: undefined
         }
     });
 
@@ -38,6 +39,7 @@ const NewEvent = () => {
             eventFormData.append('title', eventData.title);
             eventFormData.append('description', eventData.description);
             eventFormData.append('date', eventData.date);
+            eventFormData.append('time', eventData.time);
             eventFormData.append('location', eventData.location);
             eventFormData.append('poster', eventData.poster[0]);
 
@@ -48,14 +50,6 @@ const NewEvent = () => {
         } catch (err:any) {
             setStatus(true);
             setMessage(err.response.data.message);
-        }
-    }
-
-    const checkSize = (e:any) => {
-        const file = e.target.files[0];
-        if(file.size > 5 * 1024 * 1024){
-            toast.error("Poster image size should be less than 5MB");
-            e.target.value = "";
         }
     }
 
@@ -79,27 +73,32 @@ const NewEvent = () => {
                         <div  className="my-3">
                             <Label htmlFor="title" className="mb-2">Title</Label>
                             <Input {...register('title')} type="text" id="title" placeholder="Enter title"></Input>
-                            <span className="text-red-500 text-xs">{errors.title && errors.title.message}</span>
+                            <span className="text-red-500 text-xs">{errors.title?.message}</span>
                         </div>
                         <div  className="my-3">
                             <Label htmlFor="description" className="mb-2">Description</Label>
                             <Textarea {...register('description')} id="description" placeholder="Enter description"></Textarea>
-                            <span className="text-red-500 text-xs">{errors.description && errors.description.message}</span>
+                            <span className="text-red-500 text-xs">{errors.description?.message}</span>
                         </div>
                         <div  className="my-3 w-full">
                             <Label htmlFor="date" className="mb-2">Date</Label>
-                            <Input {...register('date')} type="date" id="date" className="flex items-end"></Input>
-                            <span className="text-red-500 text-xs">{errors.date && errors.date.message}</span>
+                            <Input {...register('date')} type="date" id="date"></Input>
+                            <span className="text-red-500 text-xs">{errors.date?.message}</span>
+                        </div>
+                        <div className="my-3 w-full">
+                            <Label htmlFor="time" className="mb-2">Time</Label>
+                            <Input {...register('time')} type="time" id="time" ></Input>
+                            <span className="text-red-500 text-xs">{errors.time?.message}</span>
                         </div>
                         <div  className="my-3">
                             <Label htmlFor="location" className="mb-2">Location</Label>
                             <Input {...register('location')} type="text" id="location" placeholder="Enter location"></Input>
-                            <span className="text-red-500 text-xs">{errors.location && errors.location.message}</span>
+                            <span className="text-red-500 text-xs">{errors.location?.message}</span>
                         </div>
                         <div  className="my-3">
                             <Label htmlFor="poster" className="mb-2">Poster</Label>
-                            <Input {...register('poster')} type="file" id="poster" name="poster" onChange={checkSize}></Input>
-                            <span className="text-red-500 text-xs">{errors.poster && errors.poster.message}</span>
+                            <Input {...register('poster')} type="file" id="poster" name="poster" accept=".jpg,.jpeg,image/jpeg"></Input>
+                            <span className="text-red-500 text-xs">{errors.poster?.message}</span>
                         </div>
                         <Button className="w-full mt-2 cursor-pointer">Add</Button>
                     </form>

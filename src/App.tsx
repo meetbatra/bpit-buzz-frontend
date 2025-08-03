@@ -6,7 +6,9 @@ const App = () => {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <AppRoutes />
+      <div className="flex-1">
+        <AppRoutes />
+      </div>
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   )

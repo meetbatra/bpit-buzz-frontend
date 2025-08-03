@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getRegisteredUsers, markAttendance } from "@/modules/event/api/event-api";
-import { useAuth } from "../store/user-store";
+import { useAuth } from "../../store/user-store";
 import {
   Table,
   TableBody,

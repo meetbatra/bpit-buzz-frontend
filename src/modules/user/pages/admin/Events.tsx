@@ -3,8 +3,8 @@ import { Plus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { getEvents } from "@/modules/event/api/event-api";
 import { useEffect, useState } from "react";
-import { Event } from "../../../shared/components/Event";
-import { useAuth } from "../store/user-store";
+import { Event } from "../../../../shared/components/Event";
+import { useAuth } from "../../store/user-store";
 
 const Events = () => {
     const [events, setEvents] = useState([]);
@@ -36,7 +36,7 @@ const Events = () => {
                 {loading ? (
                     <p className="text-red-600">Loading events...</p>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-6">
                         {events.map((ev) => (
                             <Event key={(ev as any)._id} event={ev}/>
                         ))}

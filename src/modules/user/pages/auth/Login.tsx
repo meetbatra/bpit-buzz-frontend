@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "../validation/login-validation";
-import { loginUser } from "../api/user-api";
+import { loginSchema } from "../../validation/login-validation";
+import { loginUser } from "../../api/user-api";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Angry } from 'lucide-react'

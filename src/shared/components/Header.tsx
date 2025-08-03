@@ -44,11 +44,7 @@ const Header = () => {
                                     <ul className="w-[9.5rem]">
                                         <li className="w-full flex gap-1 flex-col">
                                             <NavigationMenuLink asChild>
-                                                {user?.role === 'admin' ? (
-                                                    <Link to="/admin">Dashboard</Link>
-                                                ) : (
-                                                    <Link to="/certificates">Show my certificates</Link>
-                                                )}
+                                                <Link to={user?.role === 'admin' ? "/admin" : "/dashboard"} >Dashboard</Link> 
                                             </NavigationMenuLink>
                                             <Button
                                                 className="w-full cursor-pointer"

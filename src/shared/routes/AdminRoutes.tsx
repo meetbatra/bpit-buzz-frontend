@@ -1,9 +1,9 @@
-import AdminDashboard from "@/modules/user/pages/AdminDashboard"
+import AdminDashboard from "@/modules/user/pages/admin/AdminDashboard"
 import { Routes, Route, Navigate } from "react-router-dom"
-import Events from "@/modules/user/pages/Events"
-import Users from "@/modules/user/pages/Users"
-import NewEvent from "@/modules/user/pages/NewEvent"
-import Attendance from "@/modules/user/pages/Attendance"
+import Events from "@/modules/user/pages/admin/Events"
+import Users from "@/modules/user/pages/admin/Users"
+import NewEvent from "@/modules/user/pages/admin/NewEvent"
+import Attendance from "@/modules/user/pages/admin/Attendance"
 
 const AdminRoutes = () => {
     return (

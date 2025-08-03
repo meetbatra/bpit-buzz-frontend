@@ -4,19 +4,25 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/modules/user/store/user-store";
 import { registerUser } from "@/modules/user/api/user-api";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
 
 export const Event = ({event}:any) => {
     const { user, token } = useAuth();
     const isAdmin  = user?.role === 'admin'
     const navigate = useNavigate();
-    const getDate = (date:string) => {
-        const d = new Date(date);
-        return d.toLocaleDateString(undefined, {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        });
-    }
+    const getDate = (date: string) => {
+      // Format date and time
+      return format(new Date(date), "PPP");
+    };
+
+    // Format time in 12-hour format with am/pm
+    const getTime = (timeStr: string) => {
+      const [hour, minute] = timeStr.split(":").map(Number);
+      const date = new Date();
+      date.setHours(hour);
+      date.setMinutes(minute);
+      return format(date, "hh:mm a");
+    };
 
     const register = async () => {
         if(!user){
@@ -47,30 +53,7 @@ export const Event = ({event}:any) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col flex-1 justify-between">
-            <div>
-              <p>{event.description}</p>
-              <p>{getDate(event.date)}</p>
-              <p>{event.location}</p>
-            </div>
-            <div className="flex items-end mt-4">
-              {isAdmin ? (
-                <Button className="w-full">
-                  <Link
-                    to={`/admin/users/attendance/${event._id}`}
-                    className="w-full"
-                  >
-                    Mark Attendance
-                  </Link>
-                </Button>
-              ) : (
-                <Button
-                  className="w-full cursor-pointer"
-                  onClick={register}
-                >
-                  Register
-                </Button>
-              )}
-            </div>
+            <Button>Show Info</Button>
           </CardContent>
         </Card>
       </div>
