@@ -49,3 +49,16 @@ export const getEvents = (userId:any, token:any) => {
         }
     });
 }
+
+export const addFeedback = (userId: any, eventId: any, token: any, rating: any, message: any) => {
+    return axios.post('user/feedback', {
+        userId,
+        eventId,
+        rating,
+        message
+    }, {
+        headers: {
+            Authorization: token
+        }
+    });
+}

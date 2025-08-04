@@ -36,9 +36,9 @@ const Events = () => {
                 {loading ? (
                     <p className="text-red-600">Loading events...</p>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4">
                         {events.map((ev) => (
-                            <Event key={(ev as any)._id} event={ev}/>
+                            <Event key={(ev as any)._id} view="admin" event={ev}/>
                         ))}
                     </div>
                 )}

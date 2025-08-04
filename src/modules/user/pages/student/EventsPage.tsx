@@ -4,13 +4,14 @@ import { useAuth } from "../../store/user-store";
 import { Event } from "@/shared/components/Event";
 
 interface Event {
-  _id: string;
-  name: string;
+  _id: string; // Assuming _id is present
+  title: string; // Changed from 'name' to 'title'
   description: string;
   date: string;
   time: string;
   location: string;
-  poster: string;
+  posterUrl: string; // Changed from 'poster' to 'posterUrl'
+  attendanceMarked: boolean;
 }
 
 const EventsPage = () => {
@@ -76,8 +77,8 @@ const EventsPage = () => {
         <p className="text-red-600">No events found</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredEvents.map((event) => (
-                <Event event={event} key={event._id}/>
+            {filteredEvents.map((event:Event) => (
+                <Event event={event} view="student" key={event._id}/>
             ))}
         </div>
       )}

@@ -47,7 +47,7 @@ const Home = () => {
                 {eventsToday.length === 0 ? (
                 <p>No events today.</p>
                 ) : (
-                eventsToday.map((event: any) => <Event key={event._id} event={event} />)
+                eventsToday.map((event: any) => <Event key={event._id} view="home" event={event} />)
                 )}
             </div>
             </section>
@@ -57,7 +57,7 @@ const Home = () => {
                 {upcomingEvents.length === 0 ? (
                 <p>No upcoming events.</p>
                 ) : (
-                upcomingEvents.map((event: any) => <Event key={event._id} event={event} />)
+                upcomingEvents.map((event: any) => <Event key={event._id} view="home" event={event} />)
                 )}
             </div>
         </section>

@@ -1,61 +1,117 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/modules/user/store/user-store";
-import { registerUser } from "@/modules/user/api/user-api";
+import { addFeedback, registerUser } from "@/modules/user/api/user-api";
 import { toast } from "react-toastify";
-import { format } from "date-fns";
+import EventDetails from "@/shared/components/EventDetails"
+import FeedbackModal from "@/shared/components/FeedbackModal";
+import { Star } from "lucide-react";
 
-export const Event = ({event}:any) => {
-    const { user, token } = useAuth();
-    const isAdmin  = user?.role === 'admin'
-    const navigate = useNavigate();
-    const getDate = (date: string) => {
-      // Format date and time
-      return format(new Date(date), "PPP");
-    };
+interface EventType {
+  _id: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  location: string;
+  posterUrl: string;
+  feedback?: {
+    rating: number;
+    comment: string;
+  };
+  attendanceMarked: boolean
+}
 
-    // Format time in 12-hour format with am/pm
-    const getTime = (timeStr: string) => {
-      const [hour, minute] = timeStr.split(":").map(Number);
-      const date = new Date();
-      date.setHours(hour);
-      date.setMinutes(minute);
-      return format(date, "hh:mm a");
-    };
+interface EventProps {
+  event: EventType;
+  view: string;
+}
 
-    const register = async () => {
-        if(!user){
-          navigate('/login');
-          return;
-        }
+export const Event = ({ event, view }: EventProps) => {
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
 
-        try {
-            const res = await registerUser(user?._id, event._id, token);
-            toast.success(res.data.message);
-        } catch (err:any) {
-            console.log("Error in registration");
-            toast.error(err.response.data.message);
-        }
+  const register = async () => {
+      if(!user){
+        navigate('/login');
+        return;
+      }
+
+      try {
+          const res = await registerUser(user?._id, event._id, token);
+          toast.success(res.data.message);
+      } catch (err:any) {
+          console.log("Error in registration", err);
+          toast.error(err.response.data.message);
+      }
+  }
+
+  const feedback = async (rating: any, message: any) => {
+    try {
+      const res = await addFeedback(user?._id, event._id, token, rating, message);
+      toast.success(res.data.message);
+    } catch (err:any) {
+      console.log("Error in adding feedback");
+      toast.error(err.response.data.message)
     }
+  }
 
-    return (
-      <div className="flex flex-col h-full">
-        <Card className="flex flex-col flex-1">
-          <CardHeader className="text-center">
-            <img
-              src={event.posterUrl}
-              alt={event.title}
-              className="rounded-md h-[20rem] w-full object-cover"
+  return (
+    <div >
+      <Card className="h-[27rem]">
+        <CardHeader className="text-center">
+          <img
+            src={event.posterUrl}
+            alt={event.title}
+            className="rounded-md h-[18rem] w-full object-cover"
+          />
+          <CardTitle className="text-start text-2xl">
+            {event.title}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {view === 'home' && (
+            <EventDetails
+              event={event}
+              trigger={<Button className="w-full cursor-pointer">Show Info</Button>}
+              onRegister={register}
             />
-            <CardTitle className="text-start text-3xl">
-              {event.title}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col flex-1 justify-between">
-            <Button>Show Info</Button>
-          </CardContent>
-        </Card>
-      </div>
-    )
+          )}
+          {view === 'student' && ( event.attendanceMarked ? (
+            event.feedback && event.feedback.rating ? (
+              <div className="flex gap-3">
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-5 w-5 ${
+                        event.feedback && i < event.feedback.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                      }`}
+                    />
+                  ))}
+                </div>
+                  <p className="text-sm italic text-green-700">Reviewed</p>
+              </div>
+            ) : (
+              <FeedbackModal
+                trigger={<Button className="w-full cursor-pointer">Give Feedback</Button>}
+                onSubmit={feedback}
+              />
+            )
+          ) : (
+            <p className="text-red-600">Attendance not marked</p>
+          ))}
+          {view === 'admin' && (
+            <Button asChild className="w-full">
+              <Link to={`/admin/users/attendance/${event._id}`}>
+                Mark Attendance
+              </Link>
+            </Button>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  )
 }
