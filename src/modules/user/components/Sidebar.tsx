@@ -22,7 +22,7 @@ interface AdminSidebarProps {
 
 const AdminSidebar = ({ links }:AdminSidebarProps) => {
   return (
-    <div className="max-w-[10rem] h-full sticky top-0">
+    <div className="max-w-[9.5rem] h-full sticky top-0">
       <Sidebar className="absolute h-screen">
         <SidebarHeader>
           <div className="px-3 py-2 text-sm font-semibold">Dashboard</div>

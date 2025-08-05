@@ -10,22 +10,24 @@ interface FeedbackModalProps {
 }
 
 const FeedbackModal = ({ trigger, onSubmit }: FeedbackModalProps) =>  {
-  const [rating, setRating] = useState(0)
-  const [message, setMessage] = useState("")
+  const [rating, setRating] = useState(0);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = () => {
-    onSubmit(rating, message)
+    onSubmit(rating, message);
+    setOpen(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent className="w-[22rem]">
             <DialogHeader>
             <DialogTitle>Event Feedback</DialogTitle>
             </DialogHeader>
             <div className="flex items-center justify-center gap-2 mb-4">
-            {[1, 2, 3, 4, 5].map((star) => (
+            {[1,2,3,4,5].map((star) => (
                 <Star
                 key={star}
                 size={24}
@@ -43,7 +45,7 @@ const FeedbackModal = ({ trigger, onSubmit }: FeedbackModalProps) =>  {
             minLength={10}
             />
             <p className="text-sm text-gray-500 mb-4">Max 200 characters.</p>
-            <Button onClick={handleSubmit} disabled={rating === 0 || message.trim() === ""}>
+            <Button onClick={handleSubmit} disabled={rating === 0 || message.trim() === ""} className="cursor-pointer">
             Submit
             </Button>
         </DialogContent>

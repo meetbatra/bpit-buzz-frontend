@@ -27,7 +27,7 @@ const Certificates = () => {
     },[user]);
 
     return (
-        <div className="p-5">
+        <>
             <h1 className="text-4xl mb-5">My Certificates</h1>
             <div>
                 {loading ? (
@@ -53,7 +53,7 @@ const Certificates = () => {
                     </div>
                 )}
             </div>
-        </div>
+        </>
     )
 }
 

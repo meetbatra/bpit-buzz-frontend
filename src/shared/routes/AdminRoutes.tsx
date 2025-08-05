@@ -4,6 +4,7 @@ import Events from "@/modules/user/pages/admin/Events"
 import Users from "@/modules/user/pages/admin/Users"
 import NewEvent from "@/modules/user/pages/admin/NewEvent"
 import Attendance from "@/modules/user/pages/admin/Attendance"
+import Feedbacks from "@/modules/user/pages/admin/Feedbacks"
 
 const AdminRoutes = () => {
     return (
@@ -13,7 +14,8 @@ const AdminRoutes = () => {
                 <Route path="events" element={<Events />} />
                 <Route path="users" element={<Users />} />
                 <Route path="events/new" element={<NewEvent />} />
-                <Route path="users/attendance/:eventId" element={<Attendance />} />
+                <Route path="events/attendance/:eventId" element={<Attendance />} />
+                <Route path="events/feedbacks/:eventId" element={<Feedbacks />} />
             </Route>
         </Routes>
     )

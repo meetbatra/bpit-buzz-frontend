@@ -36,3 +36,11 @@ export const markAttendance = (eventId: any, userId: any, token: string) => {
         }
     );
 };
+
+export const getFeedbacks = (eventId:any, token:any) => {
+    return axios.post('/event/feedbacks', { eventId }, {
+        headers: {
+            Authorization: token
+        }
+    });
+}

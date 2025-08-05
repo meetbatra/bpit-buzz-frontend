@@ -9,7 +9,6 @@ import {
 import { useEffect, useState } from "react";
 import { getUsers } from "../../api/user-api";
 import { useAuth } from "../../store/user-store";
-import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 
 const Users = () => {
@@ -18,12 +17,9 @@ const Users = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [key, setKey] = useState('');
-    const { user, token } = useAuth() as { token: string, user:any };
-    const navigate = useNavigate();
+    const { token } = useAuth() as { token: string };
 
     useEffect(() => {
-        user?.role != "admin" && navigate('/login')
-    
         const fetchUsers = async () => {
             try {
                 const res = await getUsers(token);

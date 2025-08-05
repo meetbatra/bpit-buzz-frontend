@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getRegisteredUsers, markAttendance } from "@/modules/event/api/event-api";
 import { useAuth } from "../../store/user-store";
 import {
@@ -19,12 +19,9 @@ const Attendance = () => {
     const [loading, setLoading] = useState(true);
     const [key, setKey] = useState('');
     const { eventId } = useParams();
-    const { user, token } = useAuth() as { token:string, user:any };
-    const navigate = useNavigate();
+    const { token } = useAuth() as { token:string };
 
     useEffect(() => {
-        user?.role != "admin" && navigate('/login')
-
         fetchRegistrations()
     }, [eventId]);
 

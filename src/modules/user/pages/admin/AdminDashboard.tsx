@@ -1,6 +1,8 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Sidebar from "../../components/Sidebar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useAuth } from "../../store/user-store";
 
 const links = [
     { name: "Events", path: "/admin/events" },
@@ -8,6 +10,17 @@ const links = [
 ]
 
 const AdminDashboard = () => {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(user){
+            user.role != 'admin' && navigate('/');
+        } else {
+            navigate('/login');
+        }
+    }, [user]);
+
     return (
         <SidebarProvider>
             <div className="flex h-full w-full">

@@ -1,6 +1,8 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useAuth } from "../../store/user-store";
+import { useEffect } from "react";
 
 const links = [
   { name: "Events", path: "/dashboard/events" },
@@ -8,7 +10,18 @@ const links = [
   { name: "Event Feedback", path: "/dashboard/feedback" },
 ];
 
-export default function StudentDashboard() {
+const StudentDashboard = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(user){
+        user.role != 'student' && navigate('/');
+    } else {
+        navigate('/login');
+    }
+  },[user]);
+
   return (
     <SidebarProvider>
         <div className="flex h-full w-full">
@@ -27,3 +40,5 @@ export default function StudentDashboard() {
     </SidebarProvider>
   );
 }
+
+export default StudentDashboard;

@@ -22,19 +22,19 @@ const EventsPage = () => {
   const { user, token } = useAuth();
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await getEvents(user?._id, token);
-        setEvents(res.data);
-        setFilteredEvents(res.data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching registered events:", err);
-      }
-    };
-
     fetchEvents();
   }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const res = await getEvents(user?._id, token);
+      setEvents(res.data);
+      setFilteredEvents(res.data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching registered events:", err);
+    }
+  };
 
   useEffect(() => {
     const today = new Date();
@@ -57,9 +57,9 @@ const EventsPage = () => {
   }, [filter, events]);
 
   return (
-    <div className="space-y-4">
+    <>
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">My Events</h1>
+        <h1 className="text-4xl mb-5">My Events</h1>
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
@@ -78,11 +78,11 @@ const EventsPage = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredEvents.map((event:Event) => (
-                <Event event={event} view="student" key={event._id}/>
+                <Event event={event} view="student" refreshEvents={fetchEvents} key={event._id}/>
             ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -2,31 +2,34 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { useAuth } from "../../store/user-store";
-import { getUserFeedback } from "../../api/user-api";
+import { getFeedbacks } from "@/modules/event/api/event-api";
+import { useParams } from "react-router-dom";
 
 interface Feedback {
     _id: string;
     rating: number;
     comment: string;
-    event: {
-        title: string;
+    user: {
+        name: string;
     };
 }
 
-const FeedbackPage = () => {
-    const { user, token } = useAuth();
+const Feedbacks = () => {
+    const { token } = useAuth();
     const [feedback, setFeedback] = useState<Feedback[]>([]);
     const [loading, setLoading] = useState(true);
+    const { eventId } = useParams();
+
     useEffect(() => {
         const fetchFeedback = async () => {
             try {
-                const res = await getUserFeedback(user?._id, token);
+                const res = await getFeedbacks(eventId, token);
                 const formatted = res.data.map((item: any) => ({
                     _id: item._id,
                     rating: item.feedback.rating,
                     comment: item.feedback.comment,
-                    event: {
-                        title: item.event.title
+                    user: {
+                        name: item.student.name
                     }
                 }));
                 setFeedback(formatted);
@@ -36,13 +39,13 @@ const FeedbackPage = () => {
             }
         }
         fetchFeedback();
-    }, [user, token]);
+    }, [eventId, token]);
 
     return (
         <>
-            <h1 className="text-4xl mb-5">My Feedback</h1>
+            <h1 className="text-4xl mb-5">Feedbacks</h1>
             {loading ? (
-                <p className="text-red-600">Loading your feedback...</p>
+                <p className="text-red-600">Loading feedbacks...</p>
             ) : feedback.length === 0 ? (
                 <p className="text-red-600">No feedback found</p>
             ) : (
@@ -50,7 +53,7 @@ const FeedbackPage = () => {
                     {feedback.map((feedback) => (
                     <Card key={feedback._id}>
                         <CardHeader>
-                            <CardTitle>{feedback.event.title}</CardTitle>
+                            <CardTitle className="italic">@{feedback.user.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="flex items-center mb-2">
@@ -61,7 +64,7 @@ const FeedbackPage = () => {
                                 />
                                 ))}
                             </div>
-                            <p className="text-sm text-gray-700 italic">"{feedback.comment}"</p>
+                            <p className="text-sm text-gray-700 italic">{feedback.comment}</p>
                         </CardContent>
                     </Card>
                     ))}
@@ -71,4 +74,4 @@ const FeedbackPage = () => {
     );
 }
 
-export default FeedbackPage;
+export default Feedbacks;

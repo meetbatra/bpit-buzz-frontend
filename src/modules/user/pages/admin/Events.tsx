@@ -1,19 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getEvents } from "@/modules/event/api/event-api";
 import { useEffect, useState } from "react";
 import { Event } from "../../../../shared/components/Event";
-import { useAuth } from "../../store/user-store";
 
 const Events = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user } = useAuth();
-    const navigate = useNavigate();
 
     useEffect(() => {
-        user?.role != "admin" && navigate('/login')
 
         const fetchEvents = async () => {
             try {
@@ -38,7 +34,7 @@ const Events = () => {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4">
                         {events.map((ev) => (
-                            <Event key={(ev as any)._id} view="admin" event={ev}/>
+                            <Event key={(ev as any)._id} view="admin-events" event={ev}/>
                         ))}
                     </div>
                 )}
