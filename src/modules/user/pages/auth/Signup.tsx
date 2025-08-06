@@ -4,7 +4,7 @@ import { Angry } from 'lucide-react'
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,7 +18,7 @@ const Signup = () => {
     const [status, setStatus] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth()
+    const { user,login } = useAuth()
     const { register, handleSubmit, formState:{errors} } = useForm({
         resolver: zodResolver(signupSchema),
         defaultValues: {
@@ -27,6 +27,10 @@ const Signup = () => {
             password:''
         }
     });
+
+    useEffect(() => {
+            user && navigate('/');
+        });
 
     const signupSubmit = async (userData:unknown) => {
         console.log('Form Submit ', userData);

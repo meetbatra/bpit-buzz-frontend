@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../validation/login-validation";
 import { loginUser } from "../../api/user-api";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Angry } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useAuth } from "@/modules/user/store/user-store";
@@ -18,13 +18,17 @@ const Login = () => {
     const [status, setStatus] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { user, login } = useAuth();
     const { register, handleSubmit, formState:{errors} } = useForm({
         resolver: zodResolver(loginSchema),
         defaultValues: {
             email:'',
             password:''
         }
+    });
+
+    useEffect(() => {
+        user && navigate('/');
     });
 
     const loginSubmit = async (userData:unknown) => {

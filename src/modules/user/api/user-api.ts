@@ -23,7 +23,6 @@ export const getUsers = (token:string) => {
 }
 
 export const registerUser = (userId:any, eventId:any, token:any) => {
-    console.log(userId);
     return axios.post('user/register', {
         student: userId,
         event: eventId

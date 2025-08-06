@@ -55,7 +55,7 @@ const Users = () => {
 
     return (
         <>
-            <h1 className="text-3xl font-bold mb-3">Users</h1>
+            <h1 className="text-4xl mb-3">Users</h1>
             <Input type="text" value={key} onChange={searchUsers} className="w-auto max-w-lg mb-4" placeholder="Search users"/>
             <div>
                 {loading ? (

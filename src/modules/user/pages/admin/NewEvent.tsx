@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Angry } from "lucide-react";
+import { Angry, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 const NewEvent = () => {
     const [status, setStatus] = useState(false);
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { token } = useAuth();
     const { register, handleSubmit, formState:{errors} } = useForm({
@@ -34,6 +35,7 @@ const NewEvent = () => {
     const eventSubmit = async (eventData:any) => {
         console.log(eventData);
         try {
+            setLoading(true);
             const eventFormData = new FormData();
 
             eventFormData.append('title', eventData.title);
@@ -47,9 +49,11 @@ const NewEvent = () => {
             setStatus(false);
             toast.success(res.data.message);
             navigate('/admin');
+            setLoading(false);
         } catch (err:any) {
             setStatus(true);
             setMessage(err.response.data.message);
+            setLoading(false);
         }
     }
 
@@ -100,7 +104,16 @@ const NewEvent = () => {
                             <Input {...register('poster')} type="file" id="poster" name="poster" accept=".jpg,.jpeg,image/jpeg"></Input>
                             <span className="text-red-500 text-xs">{errors.poster?.message}</span>
                         </div>
-                        <Button className="w-full mt-2 cursor-pointer">Add</Button>
+                        <Button className="w-full mt-2 cursor-pointer" disabled={loading}>
+                            {loading ? (
+                              <div className="flex items-center justify-center gap-2">
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                Uploading...
+                              </div>
+                            ) : (
+                              "Add"
+                            )}
+                        </Button>
                     </form>
                 </CardContent>
             </Card>

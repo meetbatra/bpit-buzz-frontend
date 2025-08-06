@@ -42,25 +42,25 @@ const Home = () => {
         ) : (
             <>
             <section>
-            <h2 className="text-2xl font-bold mb-4">Events Today</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {eventsToday.length === 0 ? (
-                <p>No events today.</p>
-                ) : (
-                eventsToday.map((event: any) => <Event key={event._id} view="home" event={event} />)
-                )}
-            </div>
+                <h2 className="text-2xl font-bold mb-4">Events Today</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {eventsToday.length === 0 ? (
+                    <p>No events today.</p>
+                    ) : (
+                    eventsToday.map((event: any) => <Event key={event._id} view="home" event={event} />)
+                    )}
+                </div>
             </section>
             <section>
-            <h2 className="text-2xl font-bold mb-4">Upcoming Events</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {upcomingEvents.length === 0 ? (
-                <p>No upcoming events.</p>
-                ) : (
-                upcomingEvents.map((event: any) => <Event key={event._id} view="home" event={event} />)
-                )}
-            </div>
-        </section>
+                <h2 className="text-2xl font-bold mb-4">Upcoming Events</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {upcomingEvents.length === 0 ? (
+                    <p>No upcoming events.</p>
+                    ) : (
+                    upcomingEvents.map((event: any) => <Event key={event._id} view="home" event={event} />)
+                    )}
+                </div>
+            </section>
         </>
         )}
       </div>  

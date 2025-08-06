@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getEvents } from "../../api/user-api";
 import { useAuth } from "../../store/user-store";
 import { Event } from "@/shared/components/Event";
+import { Input } from "@/components/ui/input";
 
 interface Event {
   _id: string; // Assuming _id is present
@@ -16,9 +17,11 @@ interface Event {
 
 const EventsPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+  const [query, setQuery] = useState('');
   const { user, token } = useAuth();
 
   useEffect(() => {
@@ -29,6 +32,7 @@ const EventsPage = () => {
     try {
       const res = await getEvents(user?._id, token);
       setEvents(res.data);
+      setAllEvents(res.data);
       setFilteredEvents(res.data);
       setLoading(false);
     } catch (err) {
@@ -56,14 +60,34 @@ const EventsPage = () => {
     setFilteredEvents(newEvents);
   }, [filter, events]);
 
+  const searchEvents = (e:any) => {
+    const value = e.target.value;
+    setQuery(value);
+
+    const q = value.toLowerCase().trim();
+
+    if(!q){
+        setEvents(allEvents);
+        return;
+    }
+
+    setEvents(
+        allEvents.filter(e => {
+            const title = e.title.toLowerCase();
+            return title.includes(q);
+        })
+    )
+  }
+
   return (
     <>
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl mb-5">My Events</h1>
+      <h1 className="text-4xl mb-5">My Events</h1>
+      <div className="flex sm:flex-row flex-col gap-2 mb-2">
+        <Input type="text" value={query} onChange={searchEvents} placeholder="Search..." className="sm:w-64" />
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border px-3 py-2 rounded"
+          className="border px-3 py-2 rounded w-37 sm:ml-auto"
         >
           <option value="all">All Events</option>
           <option value="today">Events Today</option>
