@@ -3,11 +3,14 @@ import { useAuth } from "../../store/user-store";
 import { getCertificates } from "../../api/user-api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 const Certificates = () => {
     const { user, token } = useAuth();
     const [certificates, setCertificates] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [allCertificates, setAllCertificates] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [query, setQuery] = useState('');
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -17,6 +20,7 @@ const Certificates = () => {
             try {
                 const res = await getCertificates(user?._id, token);
                 setCertificates(res.data);
+                setAllCertificates(res.data);
                 setLoading(false);
             } catch (err) {
                 console.log("Error in certi");
@@ -26,9 +30,29 @@ const Certificates = () => {
         fetchCertificates()
     },[user]);
 
+    const searchCertificates = (e:any) => {
+        const value = e.target.value;
+        setQuery(value);
+
+        const q = value.toLowerCase().trim();
+
+        if(!q){
+            setCertificates(allCertificates);
+            return;
+        }
+
+        setCertificates(
+            allCertificates.filter(c => {
+                const title = (c as any).event.title.toLowerCase().trim();
+                return title.includes(q);
+            })
+        );
+    }
+
     return (
         <>
             <h1 className="text-4xl mb-5">My Certificates</h1>
+            <Input type="text" value={query} onChange={searchCertificates} placeholder="Search..." className="w-64 mb-2" />
             <div>
                 {loading ? (
                     <p className="text-red-600">Loading certificates...</p>

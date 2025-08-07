@@ -4,6 +4,7 @@ import { Star } from "lucide-react";
 import { useAuth } from "../../store/user-store";
 import { getFeedbacks } from "@/modules/event/api/event-api";
 import { useParams } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 interface Feedback {
     _id: string;
@@ -17,7 +18,9 @@ interface Feedback {
 const Feedbacks = () => {
     const { token } = useAuth();
     const [feedback, setFeedback] = useState<Feedback[]>([]);
+    const [allFeedback, setAllFeedback] = useState<Feedback[]>([]);
     const [loading, setLoading] = useState(true);
+    const [query, setQuery] = useState('');
     const { eventId } = useParams();
 
     useEffect(() => {
@@ -33,6 +36,7 @@ const Feedbacks = () => {
                     }
                 }));
                 setFeedback(formatted);
+                setAllFeedback(formatted);
                 setLoading(false);
             } catch (err) {
                 console.log('Error in fetching feedbacks', err);
@@ -41,9 +45,29 @@ const Feedbacks = () => {
         fetchFeedback();
     }, [eventId, token]);
 
+    const searchFeedback = (e:any) => {
+        const value = e.target.value;
+        setQuery(value);
+
+        const q = value.toLowerCase().trim();
+
+        if(!q){
+            setFeedback(allFeedback);
+            return;
+        }
+
+        setFeedback(
+            allFeedback.filter(f => {
+                const title = f.user.name.toLowerCase().trim();
+                return title.includes(q);
+            })
+        );
+    }
+
     return (
         <>
             <h1 className="text-4xl mb-5">Feedbacks</h1>
+            <Input type="text" value={query} onChange={searchFeedback} placeholder="Search..." className="w-64 mb-2" />
             {loading ? (
                 <p className="text-red-600">Loading feedbacks...</p>
             ) : feedback.length === 0 ? (
