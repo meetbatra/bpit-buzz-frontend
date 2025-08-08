@@ -61,7 +61,7 @@ const Home = () => {
                                 placeholder="Search today's events..."
                                 value={searchToday}
                                 onChange={(e) => setSearchToday(e.target.value)}
-                                className="mb-2 w-64"
+                                className="mb-2 sm:w-64"
                                 />
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                     {eventsToday.map((event: any) => <Event key={event._id} view="home" event={event} />)}
@@ -80,7 +80,7 @@ const Home = () => {
                                 placeholder="Search upcoming events..."
                                 value={searchUpcoming}
                                 onChange={(e) => setSearchUpcoming(e.target.value)}
-                                className="mb-2 w-64"
+                                className="mb-2 sm:w-64"
                                 />
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                     {upcomingEvents.map((event: any) => <Event key={event._id} view="home" event={event} />)}

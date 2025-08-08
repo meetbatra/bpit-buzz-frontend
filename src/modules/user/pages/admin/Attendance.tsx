@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 const Attendance = () => {
     const [registrations, setRegistrations] = useState([]);
     const [allRegistrations, setAllRegistrations] = useState([]);
+    const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(true);
     const [key, setKey] = useState('');
     const { eventId } = useParams();
@@ -28,8 +29,9 @@ const Attendance = () => {
     const fetchRegistrations = async () => {
         try {
             const res = await getRegisteredUsers(eventId, token);
-            setRegistrations(res.data);
-            setAllRegistrations(res.data);
+            setRegistrations(res.data.users);
+            setAllRegistrations(res.data.users);
+            setTitle(res.data.title);
             setLoading(false);
         } catch (err) {
             console.log('Failed to fetch users: ', err);
@@ -68,9 +70,9 @@ const Attendance = () => {
 
     return (
         <>
-            <h1 className="text-3xl mb-5">{registrations.length > 0 ? (registrations[0] as any).event.title : "Loading..."}</h1>
+            <h1 className="text-3xl mb-5">{ title }</h1>
             <h4 className="text-xl mb-3">Mark Attendance</h4>
-            <Input type="text" value={key} onChange={searchUsers} className="w-auto max-w-lg mb-4" placeholder="Search users"/>
+            <Input type="text" value={key} onChange={searchUsers} className="sm:w-64 mb-2" placeholder="Search users"/>
             <div>
                 {loading ? (
                     <p className="text-red-600">Loading users...</p>
@@ -94,7 +96,7 @@ const Attendance = () => {
                                 {!registration.attendanceMarked ? (
                                     <Button className="h-[1.5rem] w-[7rem] text-md cursor-pointer" onClick={() => markUserAttendance(registration.student._id)}>Mark Present</Button>
                                 ) : (
-                                    <p>Student present</p>
+                                    <p>Present</p>
                                 )}
                             </TableCell>
                           </TableRow>

@@ -52,14 +52,14 @@ const Certificates = () => {
     return (
         <>
             <h1 className="text-4xl mb-5">My Certificates</h1>
-            <Input type="text" value={query} onChange={searchCertificates} placeholder="Search..." className="w-64 mb-2" />
+            <Input type="text" value={query} onChange={searchCertificates} placeholder="Search..." className="sm:w-64 mb-2" />
             <div>
                 {loading ? (
                     <p className="text-red-600">Loading certificates...</p>
                 ) : certificates.length === 0 ? (
                     <p className="text-red-600">No certificates available</p>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {certificates.map((certi:any) => (
                             <Card key={certi._id}>
                                 <CardHeader>

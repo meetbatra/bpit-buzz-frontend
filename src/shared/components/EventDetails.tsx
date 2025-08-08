@@ -58,19 +58,23 @@ const EventDetails = ({ event, trigger, onRegister }: EventDetailsProps) =>  {
                         alt={event.title}
                         className="w-[20rem] h-[20rem] rounded shadow-2xl object-cover"
                     />
-                    <div className="text-white space-y-3 max-w-md">
-                        <h2 className="text-4xl font-bold">{event.title}</h2>
-                        <p className="text-md">{event.description}</p>
-                        <p className="text-lg flex items-center gap-2">
-                            <Calendar />{getDate(event.date)}
-                        </p>
-                        <p className="text-lg flex items-center gap-2">
-                            <Clock />{getTime(event.time)}
-                        </p>
-                        <p className="text-lg flex items-center gap-2">
-                            <MapPin />{event.location}
-                        </p>
-                        <Button className="mt-5 w-full bg-black cursor-pointer" onClick={handleRegister}>Register</Button>
+                    <div className="text-white w-full h-full flex flex-col justify-between pt-2">
+                        <div className="space-y-3">
+                            <h2 className="text-4xl font-bold">{event.title}</h2>
+                            <p className="text-md">{event.description}</p>
+                            <p className="text-lg flex items-center gap-2">
+                                <Calendar />{getDate(event.date)}
+                            </p>
+                            <p className="text-lg flex items-center gap-2">
+                                <Clock />{getTime(event.time)}
+                            </p>
+                            <p className="text-lg flex items-center gap-2">
+                                <MapPin />{event.location}
+                            </p>
+                        </div>
+                        <div>
+                            <Button className="mt-auto w-full bg-black cursor-pointer" onClick={handleRegister}>Register</Button>
+                        </div>
                     </div>
                 </div>
             </DialogContent>

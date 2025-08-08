@@ -67,7 +67,7 @@ const Feedbacks = () => {
     return (
         <>
             <h1 className="text-4xl mb-5">Feedbacks</h1>
-            <Input type="text" value={query} onChange={searchFeedback} placeholder="Search..." className="w-64 mb-2" />
+            <Input type="text" value={query} onChange={searchFeedback} placeholder="Search..." className="sm:w-64 mb-2" />
             {loading ? (
                 <p className="text-red-600">Loading feedbacks...</p>
             ) : feedback.length === 0 ? (

@@ -69,3 +69,11 @@ export const getUserFeedback = (userId:any, token:any) => {
         }
     });
 }
+
+export const getAnalytics = (token:any) => {
+    return axios.get('user/analytics', {
+        headers: {
+            Authorization: token
+        }
+    });
+}

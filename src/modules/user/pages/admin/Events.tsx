@@ -65,9 +65,9 @@ const Events = () => {
     return (
         <div>
             <h1 className="text-4xl mb-3">Events</h1>
-            <div className="flex flex-col md:flex-row gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
                 <Link to="/admin/events/new"><Button variant="outline" className="cursor-pointer"><Plus />Add new Event</Button></Link>
-                <Input type="text" placeholder="Search.." value={query} onChange={searchEvents} className="ml-auto md:w-64"/>
+                <Input type="text" placeholder="Search.." value={query} onChange={searchEvents} className="sm:ml-auto sm:w-64"/>
             </div>
             <div>
                 {loading ? (
