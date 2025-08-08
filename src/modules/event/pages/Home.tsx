@@ -52,40 +52,36 @@ const Home = () => {
                 <>
                     <section>
                         <h2 className="text-2xl font-bold mb-5">Events Today</h2>
+                        <Input
+                        type="text"
+                        placeholder="Search today's events..."
+                        value={searchToday}
+                        onChange={(e) => setSearchToday(e.target.value)}
+                        className="mb-2 sm:w-64"
+                        />
                         {eventsToday.length === 0 ? (
-                            <p className="text-red-600">No events today.</p>
+                            <p className="text-red-600">No events available.</p>
                         ) : (
-                            <>
-                                <Input
-                                type="text"
-                                placeholder="Search today's events..."
-                                value={searchToday}
-                                onChange={(e) => setSearchToday(e.target.value)}
-                                className="mb-2 sm:w-64"
-                                />
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                    {eventsToday.map((event: any) => <Event key={event._id} view="home" event={event} />)}
-                                </div>
-                            </>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                {eventsToday.map((event: any) => <Event key={event._id} view="home" event={event} />)}
+                            </div>
                         )}
                     </section>
                     <section>
                         <h2 className="text-2xl font-bold mb-5">Upcoming Events</h2>
+                        <Input
+                        type="text"
+                        placeholder="Search upcoming events..."
+                        value={searchUpcoming}
+                        onChange={(e) => setSearchUpcoming(e.target.value)}
+                        className="mb-2 sm:w-64"
+                        />
                         {upcomingEvents.length === 0 ? (
-                            <p className="text-red-600">No upcoming events.</p>
+                            <p className="text-red-600">No events available.</p>
                         ) : (
-                            <>
-                                <Input
-                                type="text"
-                                placeholder="Search upcoming events..."
-                                value={searchUpcoming}
-                                onChange={(e) => setSearchUpcoming(e.target.value)}
-                                className="mb-2 sm:w-64"
-                                />
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                    {upcomingEvents.map((event: any) => <Event key={event._id} view="home" event={event} />)}
-                                </div>
-                            </>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                {upcomingEvents.map((event: any) => <Event key={event._id} view="home" event={event} />)}
+                            </div>
                         )}
                     </section>
                 </>

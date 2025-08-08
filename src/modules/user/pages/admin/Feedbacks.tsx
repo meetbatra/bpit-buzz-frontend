@@ -5,6 +5,7 @@ import { useAuth } from "../../store/user-store";
 import { getFeedbacks } from "@/modules/event/api/event-api";
 import { useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import FeedbackChart from "@/modules/user/components/FeedbackChart";
 
 interface Feedback {
     _id: string;
@@ -13,30 +14,41 @@ interface Feedback {
     user: {
         name: string;
     };
+    event: {
+        title: string
+    }
 }
 
 const Feedbacks = () => {
     const { token } = useAuth();
     const [feedback, setFeedback] = useState<Feedback[]>([]);
     const [allFeedback, setAllFeedback] = useState<Feedback[]>([]);
+    const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(true);
     const [query, setQuery] = useState('');
     const { eventId } = useParams();
+    const [ratingCounts, setRatingCounts] = useState<number[]>([0, 0, 0, 0, 0]);
 
     useEffect(() => {
         const fetchFeedback = async () => {
             try {
                 const res = await getFeedbacks(eventId, token);
-                const formatted = res.data.map((item: any) => ({
+                const formatted = res.data.feedbacks.map((item: any) => ({
                     _id: item._id,
                     rating: item.feedback.rating,
                     comment: item.feedback.comment,
                     user: {
                         name: item.student.name
-                    }
+                    },
                 }));
                 setFeedback(formatted);
                 setAllFeedback(formatted);
+                setTitle(res.data.title);
+                const ratingCounts = [0, 0, 0, 0, 0];
+                formatted.forEach((f: { rating: number; }) => {
+                    if (f.rating >= 1 && f.rating <= 5) ratingCounts[f.rating - 1]++;
+                });
+                setRatingCounts(ratingCounts);
                 setLoading(false);
             } catch (err) {
                 console.log('Error in fetching feedbacks', err);
@@ -66,33 +78,37 @@ const Feedbacks = () => {
 
     return (
         <>
-            <h1 className="text-4xl mb-5">Feedbacks</h1>
+            <h1 className="text-4xl mb-5">{title}</h1>
             <Input type="text" value={query} onChange={searchFeedback} placeholder="Search..." className="sm:w-64 mb-2" />
             {loading ? (
                 <p className="text-red-600">Loading feedbacks...</p>
             ) : feedback.length === 0 ? (
                 <p className="text-red-600">No feedback found</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {feedback.map((feedback) => (
-                    <Card key={feedback._id}>
-                        <CardHeader>
-                            <CardTitle className="italic">@{feedback.user.name}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex items-center mb-2">
-                                {[1,2,3,4,5].map((i) => (
-                                <Star
-                                    key={i}
-                                    className={`w-4 h-4 mr-1 ${i <= feedback.rating ? "text-yellow-500 fill-yellow-500" : "text-gray-300"}`}
-                                />
-                                ))}
-                            </div>
-                            <p className="text-sm text-gray-700 italic">{feedback.comment}</p>
-                        </CardContent>
-                    </Card>
-                    ))}
-                </div>
+                <>
+                    <FeedbackChart ratingCounts={ratingCounts} />
+                    <h4 className="text-xl mb-2 pl-1">Feedbacks</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {feedback.map((feedback) => (
+                        <Card key={feedback._id}>
+                            <CardHeader>
+                                <CardTitle className="italic">@{feedback.user.name}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex items-center mb-2">
+                                    {[1,2,3,4,5].map((i) => (
+                                    <Star
+                                        key={i}
+                                        className={`w-4 h-4 mr-1 ${i <= feedback.rating ? "text-yellow-500 fill-yellow-500" : "text-gray-300"}`}
+                                    />
+                                    ))}
+                                </div>
+                                <p className="text-sm text-gray-700 italic">{feedback.comment}</p>
+                            </CardContent>
+                        </Card>
+                        ))}
+                    </div>
+                </>
             )}
         </>
     );
