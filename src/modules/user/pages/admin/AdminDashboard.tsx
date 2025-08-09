@@ -5,9 +5,9 @@ import { useEffect } from "react";
 import { useAuth } from "../../store/user-store";
 
 const links = [
+    { name: "Analytics", path: "/admin/analytics" },
     { name: "Events", path: "/admin/events" },
     { name: "Users", path: "/admin/users" },
-    { name: "Analytics", path: "/admin/analytics" }
 ]
 
 const AdminDashboard = () => {

@@ -77,3 +77,11 @@ export const getAnalytics = (token:any) => {
         }
     });
 }
+
+export const getStatistics = (userId:any, token:any) => {
+    return axios.post('user/statistics', { userId }, {
+        headers: {
+            Authorization: token
+        }
+    });
+}

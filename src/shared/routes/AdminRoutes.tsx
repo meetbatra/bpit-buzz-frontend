@@ -11,10 +11,10 @@ const AdminRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<AdminDashboard />} >
-                <Route index element={<Navigate to="events" replace />} />
+                <Route index element={<Navigate to="analytics" replace />} />
+                <Route path="analytics" element={<Analytics />} />
                 <Route path="events" element={<Events />} />
                 <Route path="users" element={<Users />} />
-                <Route path="analytics" element={<Analytics />} />
                 <Route path="events/new" element={<NewEvent />} />
                 <Route path="events/attendance/:eventId" element={<Attendance />} />
                 <Route path="events/feedbacks/:eventId" element={<Feedbacks />} />

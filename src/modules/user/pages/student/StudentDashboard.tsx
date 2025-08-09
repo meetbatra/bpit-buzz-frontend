@@ -5,6 +5,7 @@ import { useAuth } from "../../store/user-store";
 import { useEffect } from "react";
 
 const links = [
+  { name: "Statistics", path: "/dashboard/statistics"},
   { name: "Events", path: "/dashboard/events" },
   { name: "Certificates", path: "/dashboard/certificates" },
   { name: "Event Feedback", path: "/dashboard/feedback" },

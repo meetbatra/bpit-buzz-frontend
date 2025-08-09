@@ -48,8 +48,8 @@ const Analytics = () => {
   }, [token]);
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Admin Analytics</h1>
+    <div>
+      <h1 className="text-4xl mb-5">Admin Analytics</h1>
 
       {analytics ? (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -102,7 +102,7 @@ const Analytics = () => {
             }));
             return (
               <div className="mt-10">
-                <h2 className="text-2xl font-semibold mb-4">Top Events</h2>
+                <h2 className="text-2xl mb-4">Top Events</h2>
                 <div className="bg-white p-4 rounded-md shadow">
                   <ChartContainer className="min-h-[250px] w-full" config={chartConfig}>
                     <BarChart data={chartData} accessibilityLayer>
