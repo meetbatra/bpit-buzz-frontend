@@ -30,6 +30,7 @@ A modern, responsive event management application built with React that allows u
 ### Frontend
 - **React** - Modern JavaScript library for building user interfaces
 - **React Router** - Declarative routing for React applications
+- **Zustand** - Lightweight state management solution for React
 - **Tailwind CSS** - Utility-first CSS framework for rapid UI development
 - **shadcn/ui** - Beautifully designed components built with Radix UI and Tailwind CSS
 
