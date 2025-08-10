@@ -1,69 +1,55 @@
-# React + TypeScript + Vite
+# BPIT Buzz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive event management application built with React that allows users to create, manage, and participate in events seamlessly.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🔐 Authentication
+- **Google OAuth Integration** - Secure login with Google accounts
+- **JWT Token Authentication** - Stateless authentication with JSON Web Tokens
+- **Protected Routes** - Secure access to authenticated-only features
 
-## Expanding the ESLint configuration
+### 📅 Event Management
+- **Create Events** - Easy event creation with detailed information
+- **Event Discovery** - Browse and search through available events
+- **Event Details** - Comprehensive event information display
+- **RSVP System** - Simple event registration and attendance tracking
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 👥 User Experience
+- **Responsive Design** - Seamless experience across all devices
+- **Modern UI Components** - Beautiful, accessible interface elements
+- **User Profiles** - Personalized user dashboard and settings
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📱 Mobile-First Design
+- Fully responsive layout optimized for mobile devices
+- Touch-friendly interface elements
+- Progressive Web App (PWA) ready
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Frontend
+- **React** - Modern JavaScript library for building user interfaces
+- **React Router** - Declarative routing for React applications
+- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
+- **shadcn/ui** - Beautifully designed components built with Radix UI and Tailwind CSS
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Authentication & Security
+- **Google OAuth 2.0** - Secure authentication with Google
+- **JWT (JSON Web Tokens)** - Stateless authentication mechanism
+- **Protected Routes** - Route-level authentication guards
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Development Tools
+- **Vite** - Fast build tool and development server
+- **ESLint** - Code linting for consistent code quality
+- **Prettier** - Code formatting for consistent style
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🙏 Acknowledgments
+
+- [React](https://reactjs.org/) - The web framework used
+- [Tailwind CSS](https://tailwindcss.com/) - For beautiful styling
+- [shadcn/ui](https://ui.shadcn.com/) - For amazing UI components
+- [Google OAuth](https://developers.google.com/identity/protocols/oauth2) - For secure authentication
+
+---
+
+Built with ❤️ for the BPIT community
